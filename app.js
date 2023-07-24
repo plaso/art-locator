@@ -9,7 +9,7 @@ const app = express();
 
 /* Config */
 
-/*  */
+require('./config/db.config');
 
 /* Views */
 
@@ -29,6 +29,9 @@ app.use((req, res, next) => {
 });
 
 /* Routes */
+
+const routes = require('./config/routes.config');
+app.use(routes);
 
 app.use((req, res, next) => {
   next(createError(404, 'Page not found'));
