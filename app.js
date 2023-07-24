@@ -10,6 +10,7 @@ const app = express();
 /* Config */
 
 require('./config/db.config');
+require('./config/hbs.config');
 
 /* Views */
 
