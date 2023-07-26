@@ -5,6 +5,7 @@ const usersController = require('../controllers/users.controller');
 const artworksController = require('../controllers/artworks.controller');
 
 const authMiddleware = require('../middlewares/auth.middleware');
+const upload = require('./multer.config');
 
 router.get('/', miscController.getHome);
 
@@ -28,7 +29,7 @@ router.get('/profile', authMiddleware.isAuthenticated, usersController.profile);
 /* Artwork */
 
 router.get('/artworks', artworksController.list);
-router.post('/artworks/create', authMiddleware.isAuthenticated, artworksController.doCreate);
+router.post('/artworks/create', authMiddleware.isAuthenticated, upload.single('image'), artworksController.doCreate);
 router.get('/artworks/create', authMiddleware.isAuthenticated, artworksController.create);
 router.get('/artworks/:id', artworksController.detail);
 

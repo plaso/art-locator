@@ -4,6 +4,7 @@ const createError = require('http-errors');
 
 module.exports.list = (req, res, next) => {
   Artwork.find()
+    .populate('owner')
     .then(artworks => {
       res.render('artwork/list', { artworks })
     })
@@ -34,9 +35,19 @@ module.exports.doCreate = (req, res, next) => {
     })
   }
 
+  // const data2 = {
+  //   ...req.body,
+  //   owner: req.user._id,
+  // };
+
+  // if (req.file) {
+  //   data2.image = req.file.path;
+  // }
+
   const data = {
     ...req.body,
-    owner: req.user ? req.user._id : undefined
+    owner: req.user._id,
+    image: req.file ? req.file.path : undefined,
   }
 
   Artwork.create(data)

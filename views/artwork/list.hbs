@@ -1,0 +1,9 @@
+<h1 class="mt-4">Artworks</h1>
+
+<div class="row row-cols-1 row-cols-md-3 gy-3">
+  {{#each artworks}}
+    <div class="col">
+      {{>artwork this}}
+    </div>
+  {{/each}}
+</div>

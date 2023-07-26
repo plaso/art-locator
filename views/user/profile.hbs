@@ -13,5 +13,17 @@
       <span class="fw-bold me-4">Email</span>
       <span>{{currentUser.email}}</span>
     </div>
+
+    <h2 class="mt-4">My artworks</h2>
+
+    <div class="row row-cols-2">
+      {{#each currentUser.artworks}}
+        <div class="col">
+          {{>artwork this}}
+        </div>
+      {{else}}
+        <p>You haven't add any artworks yet</p>
+      {{/each}}
+    </div>
   </div>
 </div>

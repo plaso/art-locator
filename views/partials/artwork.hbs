@@ -1,0 +1,9 @@
+<div class="card h-100">
+  <img src="{{image}}" class="card-img-top" alt="{{name}}">
+  <div class="card-body">
+    <h5 class="card-title">{{name}}</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{artist}}</h6>
+    {{#if owner.username}}<p>{{owner.username}}</p>{{/if}}
+    <span class="badge bg-secondary">{{discipline}}</span>
+  </div>
+</div>

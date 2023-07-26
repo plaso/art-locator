@@ -11,6 +11,7 @@ passport.serializeUser((user, next) => {
 
 passport.deserializeUser((id, next) => {
   User.findById(id)
+    .populate('artworks')
     .then(user => next(null, user))
     .catch(err => next(err))
 });

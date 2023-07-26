@@ -22,6 +22,10 @@ const artworkSchema = new mongoose.Schema(
       type: String,
       required: [true, REQUIRED_FIELD],
     },
+    image: {
+      type: String,
+      required: [true, REQUIRED_FIELD],
+    },
     owner: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
