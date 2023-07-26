@@ -10,8 +10,10 @@ mongoose
   });
 
 process.on('SIGINT', function () {
-  mongoose.connection.close(function () {
-    console.log('Mongoose disconnected on app termination');
-    process.exit(0);
-  });
+  mongoose.connection.close()
+    .then(() => {
+      console.log('Mongoose disconnected on app termination');
+      process.exit(0);
+    })
+    .catch(err => console.error(err))
 });
