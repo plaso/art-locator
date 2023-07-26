@@ -7,12 +7,19 @@ module.exports.register = (req, res, next) => {
 };
 
 module.exports.doRegister = (req, res, next) => {
-  const { email } = req.body
+  const { email, password, repeatPassword } = req.body
 
   const renderWithErrors = (errors) => {
     res.render('auth/register', {
       user: req.body,
       errors
+    })
+  }
+
+  if (password !== repeatPassword) {
+    return renderWithErrors({
+      repeatPassword: 'Passwords must match',
+      password: 'Passwords must match',
     })
   }
 
