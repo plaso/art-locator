@@ -5,6 +5,7 @@ const logger = require('morgan');
 const path = require('path');
 const createError = require('http-errors');
 const passport = require('passport');
+const { DISCIPLINES, SIZES } = require('./constants');
 
 const app = express();
 
@@ -32,6 +33,8 @@ app.use(passport.session());
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.disciplines = DISCIPLINES;
+  res.locals.sizes = SIZES;
 
   next();
 });

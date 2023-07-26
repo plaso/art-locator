@@ -1,0 +1,73 @@
+<div class="mt-4">
+  <h1>Create an artwork</h1>
+
+  <form action="/artworks/create" method="post">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        class="form-control{{#if errors.name}} is-invalid{{/if}}"
+        name="name" type="text" id="name" value="{{artwork.name}}" required
+        placeholder="Name of the artwork"
+      >
+      {{#if errors.name}}
+        <div class="invalid-feedback">
+          {{errors.name}}
+        </div>
+      {{/if}}
+    </div>
+
+    <div class="mb-3">
+      <label for="discipline" class="form-label">Discipline</label>
+      <select
+        class="form-select{{#if errors.discipline}} is-invalid{{/if}}"
+        value="{{artwork.discipline}}"
+        name="discipline"
+      >
+        <option selected>Open this select menu</option>
+        {{#each disciplines}}
+          <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+      {{#if errors.discipline}}
+        <div class="invalid-feedback">
+          {{errors.discipline}}
+        </div>
+      {{/if}}
+    </div>
+
+    <div class="mb-3">
+      <label for="size" class="form-label">Size</label>
+      <select
+        class="form-select{{#if errors.size}} is-invalid{{/if}}"
+        value="{{artwork.size}}"
+        name="size"
+      >
+        <option selected>Open this select menu</option>
+        {{#each sizes}}
+          <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+      {{#if errors.size}}
+        <div class="invalid-feedback">
+          {{errors.size}}
+        </div>
+      {{/if}}
+    </div>
+
+    <div class="mb-3">
+      <label for="artist" class="form-label">Artist</label>
+      <input
+        class="form-control{{#if errors.artist}} is-invalid{{/if}}"
+        name="artist" type="text" id="artist" value="{{artwork.artist}}" required
+        placeholder="Name of the artist"
+      >
+      {{#if errors.artist}}
+        <div class="invalid-feedback">
+          {{errors.artist}}
+        </div>
+      {{/if}}
+    </div>
+
+    <button class="btn btn-primary" type="submit">Create</button>
+  </form>
+</div>
