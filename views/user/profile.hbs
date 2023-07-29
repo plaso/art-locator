@@ -1,23 +1,23 @@
 <div class="row mt-4">
   <div class="w-auto">
-    <img width="80" class="rounded" src="{{currentUser.avatar}}" alt="">
+    <img width="80" class="rounded" src="{{user.avatar}}" alt="">
   </div>
   <div class="col flex-grow-1">
     <h2>Details</h2>
 
     <div class="d-flex border-bottom py-3">
       <span class="fw-bold me-4">Username</span>
-      <span>{{currentUser.username}}</span>
+      <span>{{user.username}}</span>
     </div>
     <div class="d-flex border-bottom py-3" >
       <span class="fw-bold me-4">Email</span>
-      <span>{{currentUser.email}}</span>
+      <span>{{user.email}}</span>
     </div>
 
     <h2 class="mt-4">My artworks</h2>
 
     <div class="row row-cols-2">
-      {{#each currentUser.artworks}}
+      {{#each user.artworks}}
         <div class="col">
           {{>artwork this}}
         </div>

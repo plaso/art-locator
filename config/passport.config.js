@@ -4,14 +4,13 @@ const User = require('../models/User.model');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-
 passport.serializeUser((user, next) => {
   next(null, user._id);
 });
 
 passport.deserializeUser((id, next) => {
   User.findById(id)
-    .populate('artworks')
+    .populate('artworks') // Que req.user va a tener los artworks
     .then(user => next(null, user))
     .catch(err => next(err))
 });
@@ -53,7 +52,6 @@ passport.use(
       callbackURL: process.env.G_REDIRECT_URI || '/authenticate/google/cb',
     },
     (accessToken, refreshToken, profile, next) => {
-      console.log(profile);
       const displayName = profile.displayName;
       const googleID = profile.id;
       const email = profile.emails[0] ? profile.emails[0].value : undefined;

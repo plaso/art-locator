@@ -25,6 +25,7 @@ router.get('/authenticate/google/cb', authMiddleware.isUnauthenticated, authCont
 /* User */
 
 router.get('/profile', authMiddleware.isAuthenticated, usersController.profile);
+router.get('/profile/:id', authMiddleware.isAuthenticated, usersController.getUserProfile);
 
 /* Artwork */
 

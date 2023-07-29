@@ -3,7 +3,9 @@
 <div class="row row-cols-1 row-cols-md-3 gy-3">
   {{#each artworks}}
     <div class="col">
-      {{>artwork this}}
+      <a class="text-decoration-none" href="/artworks/{{this._id}}">
+        {{>artwork this}}
+      </a>
     </div>
   {{/each}}
 </div>

@@ -1,0 +1,12 @@
+<div class="row row-cols-md-2 row-cols-1 mt-4">
+  <div class="col">
+    <img src="{{artwork.image}}" class="img-fluid" alt="{{artwork.name}}">
+  </div>
+
+  <div class="col mt-1 mt-md-0">
+    <h3 class="fw-bold">{{artwork.name}}</h3>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{artwork.artist}}</h6>
+    {{#if artwork.owner.username}}<p>{{artwork.owner.username}}</p>{{/if}}
+    <span class="badge bg-secondary">{{artwork.discipline}}</span>
+  </div>
+</div>
