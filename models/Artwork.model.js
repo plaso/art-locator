@@ -34,8 +34,19 @@ const artworkSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    virtuals: true,
+    toObject: {
+      virtuals: true,
+    }
   }
 );
+
+artworkSchema.virtual('verifications', {
+  ref: 'Verification',
+  foreignField: 'artwork',
+  localField: '_id',
+  justOne: false,
+})
 
 const Artwork = mongoose.model('Artwork', artworkSchema);
 

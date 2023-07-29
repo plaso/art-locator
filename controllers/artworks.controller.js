@@ -13,9 +13,20 @@ module.exports.list = (req, res, next) => {
 
 module.exports.detail = (req, res, next) => {
   Artwork.findById(req.params.id)
+    .populate('verifications')
     .then(artwork => {
+      const positiveVerifications = artwork.verifications.filter(verification => verification.validation).length;
+      const negativeVerifications = artwork.verifications.filter(verification => !verification.validation).length;
+
+      const userVerification = artwork.verifications.find(verification => verification.user.toString() === req.user._id.toString());
+      const userPositive = userVerification && userVerification.validation === true;
+      const userNegative = userVerification && userVerification.validation === false;
+
       if (artwork) {
-        res.render('artwork/detail', { artwork });
+        res.render(
+          'artwork/detail',
+          { artwork, positiveVerifications, negativeVerifications, userPositive, userNegative }
+        );
       } else {
         next(createError(404, 'Artwork not found'));
       }

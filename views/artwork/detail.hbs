@@ -11,10 +11,20 @@
 
     <div class="d-flex mt-2">
       <form action="/artworks/{{artwork._id}}/verify" method="post">
-        <button class="btn btn-outline-success me-2" type="submit" name="validation" value="true">True</button>
+        <button
+          class="btn me-2 {{#if userPositive}}btn-success{{else}}btn-outline-success{{/if}}"
+          type="submit" name="validation" value="true"
+        >
+          {{positiveVerifications}}
+        </button>
       </form>
       <form action="/artworks/{{artwork._id}}/verify" method="post">
-        <button class="btn btn-outline-danger" type="submit" name="validation" value="false">False</button>
+        <button
+          class="btn {{#if userNegative}}btn-danger{{else}}btn-outline-danger{{/if}}"
+          type="submit" name="validation" value="false"
+        >
+          {{negativeVerifications}}
+        </button>
       </form>
     </div>
   </div>
