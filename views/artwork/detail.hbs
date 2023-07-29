@@ -29,3 +29,22 @@
     </div>
   </div>
 </div>
+
+<div class="mt-2">
+  <h2>Related content</h2>
+
+  {{#if relatedArtworks}}
+    <div class="row row-cols-1 row-cols-md-3">
+      {{#each relatedArtworks}}
+        <div class="col">
+          <a class="text-decoration-none" href="/artworks/{{this._id}}">
+            {{>artwork this}}
+          </a>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <p>We could not find any artwork related</p>
+  {{/if}}
+
+</div>

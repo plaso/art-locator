@@ -4,6 +4,7 @@ const createError = require('http-errors');
 
 module.exports.list = (req, res, next) => {
   Artwork.find()
+    .sort({ createdAt: 'descending' })
     .populate('owner')
     .then(artworks => {
       res.render('artwork/list', { artworks })
@@ -23,10 +24,19 @@ module.exports.detail = (req, res, next) => {
       const userNegative = userVerification && userVerification.validation === false;
 
       if (artwork) {
-        res.render(
-          'artwork/detail',
-          { artwork, positiveVerifications, negativeVerifications, userPositive, userNegative }
-        );
+        return Artwork.find({ discipline: artwork.discipline, _id: { $not: { $eq: artwork._id } } })
+          .limit(3)
+          .sort({ createdAt: 'desc' })
+          .then((relatedArtworks) => {
+            res.render(
+              'artwork/detail',
+              { 
+                artwork, positiveVerifications,
+                negativeVerifications, userPositive,
+                userNegative, relatedArtworks
+              }
+            );
+          })
       } else {
         next(createError(404, 'Artwork not found'));
       }
