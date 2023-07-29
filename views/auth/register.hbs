@@ -1,6 +1,6 @@
-<h1>Create an account for Art Locator</h1>
+<h1 class="mt-4">Create an account for Art Locator</h1>
 
-<form action="/register" method="POST">
+<form action="/register" method="POST" enctype="multipart/form-data">
   <div class="mb-3">
     <label for="email" class="form-label">Email address</label>
     <input
@@ -49,5 +49,11 @@
       </div>
     {{/if}}
   </div>
+
+  <div class="mb-3">
+    <label for="avatar" class="form-label">Avatar</label>
+    <input class="form-control" type="file" id="avatar" name="avatar">
+  </div>
+
   <button class="btn btn-primary" type="submit">Create account</button>
 </form>

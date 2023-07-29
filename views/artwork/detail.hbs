@@ -8,5 +8,14 @@
     <h6 class="card-subtitle mb-2 text-body-secondary">{{artwork.artist}}</h6>
     {{#if artwork.owner.username}}<p>{{artwork.owner.username}}</p>{{/if}}
     <span class="badge bg-secondary">{{artwork.discipline}}</span>
+
+    <div class="d-flex mt-2">
+      <form action="/artworks/{{artwork._id}}/verify" method="post">
+        <button class="btn btn-outline-success me-2" type="submit" name="validation" value="true">True</button>
+      </form>
+      <form action="/artworks/{{artwork._id}}/verify" method="post">
+        <button class="btn btn-outline-danger" type="submit" name="validation" value="false">False</button>
+      </form>
+    </div>
   </div>
 </div>
