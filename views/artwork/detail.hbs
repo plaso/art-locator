@@ -10,22 +10,20 @@
     <span class="badge bg-secondary">{{artwork.discipline}}</span>
 
     <div class="d-flex mt-2">
-      <form action="/artworks/{{artwork._id}}/verify" method="post">
-        <button
-          class="btn me-2 {{#if userPositive}}btn-success{{else}}btn-outline-success{{/if}}"
-          type="submit" name="validation" value="true"
-        >
-          {{positiveVerifications}}
-        </button>
-      </form>
-      <form action="/artworks/{{artwork._id}}/verify" method="post">
-        <button
-          class="btn {{#if userNegative}}btn-danger{{else}}btn-outline-danger{{/if}}"
-          type="submit" name="validation" value="false"
-        >
-          {{negativeVerifications}}
-        </button>
-      </form>
+      <button
+        class="btn-verification btn me-2 {{#if userPositive}}btn-success{{else}}btn-outline-success{{/if}}"
+        type="submit" name="validation" value="true"
+        id="{{artwork._id}}"
+      >
+        {{positiveVerifications}}
+      </button>
+      <button
+        class="btn-verification btn {{#if userNegative}}btn-danger{{else}}btn-outline-danger{{/if}}"
+        type="submit" name="validation" value="false"
+        id="{{artwork._id}}"
+      >
+        {{negativeVerifications}}
+      </button>
     </div>
   </div>
 </div>
@@ -48,3 +46,7 @@
   {{/if}}
 
 </div>
+<script>
+  window.artwork = "{{artwork._id}}"
+</script>
+<script src="/js/verifications.js"></script>
