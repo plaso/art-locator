@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 const Artwork = require('../models/Artwork.model');
 const createError = require('http-errors');
 
+const ARTWORKS_PER_PAGE = 3;
+
 module.exports.list = (req, res, next) => {
-  const { discipline, size } = req.query;
+  const { discipline, size, page = 1 } = req.query;
+
+  const currentPage = Number(page);
 
   const query = {};
 
@@ -14,11 +18,46 @@ module.exports.list = (req, res, next) => {
     query.size = size;
   }
 
+  // const promises = [
+  //   Artwork.find().limit(3).sort({ createdAt: 'descending' }),
+  //   Artwork.find({ discipline: 'PAINTING' }).limit(3).sort({ createdAt: 'descending' }),
+  // ]
+
+  // Promise.all(promises)
+  //   .then(([primera, segunda]) => {
+  //     res.render('list', { lastArtworks: primera, categoryArtworks: segunda })
+  //   })
+  //   .catch(next)
+
   Artwork.find(query)
     .sort({ createdAt: 'descending' })
+    .limit(ARTWORKS_PER_PAGE)
+    .skip(ARTWORKS_PER_PAGE * (currentPage - 1))
     .populate('owner')
     .then(artworks => {
-      res.render('artwork/list', { artworks })
+      const viewQuery = {
+        discipline,
+        size,
+        hasFilter: discipline || size
+        // hasFilter: [discipline, size].some(param => param)
+      };
+
+      return Artwork.count(query)
+        .then(count => {
+          const maxPages = count / ARTWORKS_PER_PAGE
+
+          console.log(maxPages)
+          res.render(
+            'artwork/list',
+            {
+              artworks,
+              query: viewQuery,
+              nextPage: currentPage >= maxPages ? null : currentPage + 1,
+              previousPage: currentPage > 1 ? currentPage - 1 : null
+            }
+          )
+        })
+
     })
     .catch(next)
 }

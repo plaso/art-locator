@@ -1,33 +1,37 @@
 <h1 class="mt-4">Artworks</h1>
 
-<div class="d-flex mb-3">
+<div class="d-flex mb-3 align-items-center">
   <div class="btn-group me-3">
-    <button type="button" class="btn btn-primary">Discipline</button>
-    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" class="btn {{#activeFilter query=query param='discipline'}}btn-success{{else}}btn-primary{{/activeFilter}}">Discipline</button>
+    <button type="button" class="btn {{#activeFilter query=query param='discipline'}}btn-success{{else}}btn-primary{{/activeFilter}} dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
       <span class="visually-hidden">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu">
       <form action="/artworks" method="get">
         {{#each disciplines}}
-          <li><button class="dropdown-item" name="discipline" value="{{this}}">{{this}}</button></li>
+          <li><button class="dropdown-item {{#activeItemFilter query=../query param='discipline' value=this}}active{{/activeItemFilter}}" name="discipline" value="{{this}}">{{this}}</button></li>
         {{/each}}
       </form>
     </ul>
   </div>
 
-  <div class="btn-group">
-    <button type="button" class="btn btn-primary">Size</button>
-    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+  <div class="btn-group me-3">
+    <button type="button" class="btn {{#activeFilter query=query param='size'}}btn-success{{else}}btn-primary{{/activeFilter}}">Size</button>
+    <button type="button" class="btn {{#activeFilter query=query param='size'}}btn-success{{else}}btn-primary{{/activeFilter}} dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
       <span class="visually-hidden">Toggle Dropdown</span>
     </button>
     <ul class="dropdown-menu">
       <form action="/artworks" method="get">
         {{#each sizes}}
-          <li><button class="dropdown-item" name="size" value="{{this}}">{{this}}</button></li>
+          <li><button class="dropdown-item {{#activeItemFilter query=../query param='size' value=this}}active{{/activeItemFilter}}" name="size" value="{{this}}">{{this}}</button></li>
         {{/each}}
       </form>
     </ul>
   </div>
+
+  {{#if query.hasFilter}}
+    <a href="/artworks">Clear filters</a>
+  {{/if}}
 </div>
 
 {{#if artworks}}
@@ -40,6 +44,13 @@
       </div>
     {{/each}}
   </div>
+
+  <nav class="mt-4 d-flex justify-content-center">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link {{#unless previousPage}}disabled{{/unless}}" href="?page={{previousPage}}">Previous</a></li>
+      <li class="page-item"><a class="page-link {{#unless nextPage}}disabled{{/unless}}" href="?page={{nextPage}}">Next</a></li>
+    </ul>
+  </nav>
 {{else}}
   <p>There are not results for your filter</p>
 {{/if}}
