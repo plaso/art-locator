@@ -11,10 +11,13 @@ module.exports.create = (req, res, next) => {
   Verification.findOne({ user: req.user._id, artwork })
     .then(verification => {
       if (verification) {
-        console.log('if true');
         // Actualizo
-        return Verification
-          .findByIdAndUpdate(verification._id, { validation })
+        if (verification.validation !== validation) {
+          return Verification
+            .findByIdAndUpdate(verification._id, { validation })
+        }
+
+        return Verification.findByIdAndDelete(verification._id);
       } else {
         // Creo
         const verificationData = {
@@ -28,7 +31,7 @@ module.exports.create = (req, res, next) => {
       }
     })
     .then(() => {
-      res.redirect(`/artworks/${artwork}`)
+      res.json({ ok: true });
     })
     .catch(next);
 }
