@@ -3,7 +3,18 @@ const Artwork = require('../models/Artwork.model');
 const createError = require('http-errors');
 
 module.exports.list = (req, res, next) => {
-  Artwork.find()
+  const { discipline, size } = req.query;
+
+  const query = {};
+
+  if (discipline) {
+    query.discipline = discipline;
+  }
+  if (size) {
+    query.size = size;
+  }
+
+  Artwork.find(query)
     .sort({ createdAt: 'descending' })
     .populate('owner')
     .then(artworks => {

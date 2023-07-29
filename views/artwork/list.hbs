@@ -1,11 +1,45 @@
 <h1 class="mt-4">Artworks</h1>
 
-<div class="row row-cols-1 row-cols-md-3 gy-3">
-  {{#each artworks}}
-    <div class="col">
-      <a class="text-decoration-none" href="/artworks/{{this._id}}">
-        {{>artwork this}}
-      </a>
-    </div>
-  {{/each}}
+<div class="d-flex mb-3">
+  <div class="btn-group me-3">
+    <button type="button" class="btn btn-primary">Discipline</button>
+    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu">
+      <form action="/artworks" method="get">
+        {{#each disciplines}}
+          <li><button class="dropdown-item" name="discipline" value="{{this}}">{{this}}</button></li>
+        {{/each}}
+      </form>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary">Size</button>
+    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu">
+      <form action="/artworks" method="get">
+        {{#each sizes}}
+          <li><button class="dropdown-item" name="size" value="{{this}}">{{this}}</button></li>
+        {{/each}}
+      </form>
+    </ul>
+  </div>
 </div>
+
+{{#if artworks}}
+  <div class="row row-cols-1 row-cols-md-3 gy-3">
+    {{#each artworks}}
+      <div class="col">
+        <a class="text-decoration-none" href="/artworks/{{this._id}}">
+          {{>artwork this}}
+        </a>
+      </div>
+    {{/each}}
+  </div>
+{{else}}
+  <p>There are not results for your filter</p>
+{{/if}}
